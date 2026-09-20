@@ -1,0 +1,29 @@
+### Commands:
+
+POST http://localhost:8080/basket
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/basket/{{basketId}}/items
+Content-Type: application/json
+
+{
+  "title": "bla",
+  "price": 5.00
+}
+
+###
+
+DELETE http://localhost:8080/basket/{{basketId}}/items/0
+Content-Type: application/json
+
+### Queries:
+
+GET http://localhost:8080/basket
+
+###
+
+GET http://localhost:8080/basket/{{basketId}}/items
+
+###

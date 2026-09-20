@@ -1,0 +1,22 @@
+services:
+  axon:
+    image: axoniq/axonserver:2024.0.1-jdk-17
+    restart: always
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+
+  mongodb:
+    image: mongo:7 # Also update app/src/test/community/flock/examples/axon/webshop/app/environment/Variables.kt
+    restart: always
+    ports:
+      - "27017:27017"
+
+  postgres:
+    image: postgres:16 # Also update app/src/test/community/flock/examples/axon/webshop/app/environment/Variables.kt
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: supergebruiker
+      POSTGRES_PASSWORD: kapotgeheim
