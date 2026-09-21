@@ -1,14 +1,14 @@
 spring:
   application:
-    name: axon-demo
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/items
+    name: flock-axon-example
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: supergebruiker
     password: kapotgeheim
+  jpa:
+    hibernate:
+      ddl-auto: update
   web:
     locale: en_US
     locale-resolver: fixed

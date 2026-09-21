@@ -13,10 +13,11 @@ import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.modelling.command.AggregateMember
+import org.axonframework.modelling.command.ForwardToAll
 import org.axonframework.spring.stereotype.Aggregate
 
 @Aggregate
-class BasketAggregate() {
+class BasketAggregate private constructor() {
     @AggregateIdentifier
     private lateinit var basketId: BasketId
 

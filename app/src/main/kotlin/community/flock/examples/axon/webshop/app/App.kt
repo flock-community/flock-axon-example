@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AxonDemoApplication
+class App
 
 fun main(args: Array<String>) {
-    runApplication<AxonDemoApplication>(*args)
+    runApplication<App>(*args)
 }

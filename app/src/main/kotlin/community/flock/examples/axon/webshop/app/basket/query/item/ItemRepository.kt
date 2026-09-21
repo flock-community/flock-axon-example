@@ -5,22 +5,24 @@ import community.flock.examples.axon.webshop.app.basket.query.item.ItemTransform
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemTransformer.internalize
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
-import kotlinx.coroutines.reactor.awaitSingle
-import kotlinx.coroutines.reactor.awaitSingleOrNull
-import kotlinx.coroutines.runBlocking
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import jakarta.persistence.ElementCollection
+import jakarta.persistence.Embeddable
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.Id
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID
 
-@Document
+@Entity
 data class BasketEntity(
     @Id
     val id: UUID,
+    @ElementCollection(fetch = FetchType.EAGER)
     val items: List<ItemEntity> = emptyList(),
 )
 
+@Embeddable
 data class ItemEntity(
     val id: Int,
     val title: String,
@@ -29,16 +31,13 @@ data class ItemEntity(
 
 @Repository
 class ItemRepository(
-    private val repo: MongoDBRepository,
+    private val repo: PostgresRepository,
 ) {
     fun createBasket(basketId: BasketId): BasketId =
-        runBlocking {
-            BasketEntity(id = basketId.value)
-                .let { repo.save(it) }
-                .awaitSingle()
-                .id
-                .let(::BasketId)
-        }
+        BasketEntity(id = basketId.value)
+            .let { repo.save(it) }
+            .id
+            .let(::BasketId)
 
     fun getAllItemsFromBasket(basketId: BasketId): List<Item> =
         getBasketById(basketId)
@@ -50,12 +49,11 @@ class ItemRepository(
         basketId: BasketId,
         item: Item,
     ): Item =
-        runBlocking {
+        run {
             val (id) = basketId
             val newItems = getAllItemsFromBasket(basketId) + item
             BasketEntity(id = id, items = newItems.map { it.externalize() })
-                .let { repo.save(it) }
-                .awaitSingle()
+                .let(repo::save)
             item
         }
 
@@ -63,20 +61,20 @@ class ItemRepository(
         basketId: BasketId,
         itemId: ItemId,
     ): Item? =
-        runBlocking {
+        run {
             val (id) = basketId
             val items = getAllItemsFromBasket(basketId)
             val item = items.find { it.id == itemId }
             val newBasket = BasketEntity(id = id, items = items.filterNot { it.id == itemId }.map { it.externalize() })
-            repo.save(newBasket).awaitSingle()
+            repo.save(newBasket)
             item
         }
 
     private fun getBasketById(basketId: BasketId): BasketEntity? =
-        runBlocking {
+        run {
             val (id) = basketId
-            repo.findById(id).awaitSingleOrNull()
+            repo.findById(id).orElse(null)
         }
 }
 
-interface MongoDBRepository : ReactiveCrudRepository<BasketEntity, UUID>
+interface PostgresRepository : JpaRepository<BasketEntity, UUID>

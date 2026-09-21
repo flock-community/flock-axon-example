@@ -16,12 +16,16 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
-            <groupId>community.flock.examples.axon.webshop</groupId>
-            <artifactId>api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+            <groupId>io.arrow-kt</groupId>
+            <artifactId>arrow-core-jvm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>community.flock.examples.axon.webshop</groupId>
+            <artifactId>api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -64,10 +68,6 @@
             <artifactId>axon-kotlin</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.litote.kmongo</groupId>
-            <artifactId>kmongo-coroutine</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
@@ -99,11 +99,6 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers-mongodb</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers-postgresql</artifactId>
             <scope>test</scope>
         </dependency>
@@ -123,12 +118,18 @@
                     <configuration>
                         <compilerPlugins>
                             <plugin>spring</plugin>
+                            <plugin>jpa</plugin>
                         </compilerPlugins>
                     </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.jetbrains.kotlin</groupId>
                             <artifactId>kotlin-maven-allopen</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-noarg</artifactId>
                             <version>${kotlin.version}</version>
                         </dependency>
                     </dependencies>

@@ -1,10 +1,10 @@
 .PHONY: *
 
-## Equivalent to `make clean build`
-all: clean build
-
 build: ## build and verify the project
 	./mvnw verify -Pformat
+
+## Equivalent to `make clean build`
+all: clean build
 
 clean: ## maven clean
 	./mvnw clean

@@ -1,12 +1,12 @@
 package community.flock.examples.axon.webshop.app.basket.query
 
+import community.flock.examples.axon.webshop.api.basket.BASKET_BASE_URL
+import community.flock.examples.axon.webshop.api.basket.ITEMS_PATH
 import community.flock.examples.axon.webshop.api.basket.query.ItemDto
 import community.flock.examples.axon.webshop.api.basket.query.QueryApi
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemProducer.produce
-import community.flock.examples.axon.webshop.app.basket.shared.BASKET_BASE_URL
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ITEMS_PATH
 import community.flock.examples.axon.webshop.app.basket.shared.InvalidBasketIdException
 import kotlinx.coroutines.future.await
 import org.axonframework.config.Configuration

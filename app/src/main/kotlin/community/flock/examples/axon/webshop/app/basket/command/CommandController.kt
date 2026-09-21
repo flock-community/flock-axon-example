@@ -1,11 +1,11 @@
 package community.flock.examples.axon.webshop.app.basket.command
 
+import community.flock.examples.axon.webshop.api.basket.BASKET_BASE_URL
+import community.flock.examples.axon.webshop.api.basket.ITEMS_PATH
 import community.flock.examples.axon.webshop.api.basket.command.CommandApi
 import community.flock.examples.axon.webshop.api.basket.command.model.ItemDto
 import community.flock.examples.axon.webshop.app.basket.command.ItemConsumer.consume
-import community.flock.examples.axon.webshop.app.basket.shared.BASKET_BASE_URL
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ITEMS_PATH
 import community.flock.examples.axon.webshop.app.basket.shared.InvalidBasketIdException
 import community.flock.examples.axon.webshop.app.basket.shared.InvalidItemIdException
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
