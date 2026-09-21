@@ -4,10 +4,57 @@
 
     <parent>
         <groupId>community.flock.examples.axon.webshop</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>flock-axon-example</artifactId>
         <version>${revision}</version>
     </parent>
 
     <artifactId>api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>community.flock.wirespec.integration</groupId>
+            <artifactId>wirespec-jvm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>community.flock.wirespec.plugin.maven</groupId>
+                <artifactId>wirespec-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>community.flock.wirespec.integration</groupId>
+                        <artifactId>spring-jvm</artifactId>
+                        <version>${wirespec.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>kotlin</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <input>${project.basedir}/src/main/wirespec</input>
+                            <output>${project.build.directory}/generated-sources/wirespec</output>
+                            <languages>
+                                <language>Kotlin</language>
+                            </languages>
+                            <packageName>community.flock.examples.axon.webshop.api</packageName>
+                            <shared>false</shared>
+                            <extensionClasses>
+                                <extensionClass>community.flock.wirespec.integration.spring.extension.SpringMappingAnnotationsExtension</extensionClass>
+                            </extensionClasses>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

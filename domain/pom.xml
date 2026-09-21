@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>community.flock.examples.axon.webshop</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>flock-axon-example</artifactId>
         <version>${revision}</version>
     </parent>
 

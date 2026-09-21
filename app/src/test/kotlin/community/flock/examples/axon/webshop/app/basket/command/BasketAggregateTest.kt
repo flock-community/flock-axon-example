@@ -4,9 +4,9 @@ import community.flock.examples.axon.webshop.app.basket.command.model.BasketAggr
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.command.model.Price
 import community.flock.examples.axon.webshop.app.basket.command.model.Title
-import community.flock.examples.axon.webshop.app.basket.shared.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemAddedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.Test

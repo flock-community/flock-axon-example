@@ -3,17 +3,16 @@ package community.flock.examples.axon.webshop.app.basket.command.model
 import community.flock.examples.axon.webshop.app.basket.command.AddItemCommand
 import community.flock.examples.axon.webshop.app.basket.command.CreateBasketCommand
 import community.flock.examples.axon.webshop.app.basket.command.RemoveItemCommand
-import community.flock.examples.axon.webshop.app.basket.shared.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
+import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemAddedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemRemovedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.modelling.command.AggregateMember
-import org.axonframework.modelling.command.ForwardToAll
 import org.axonframework.spring.stereotype.Aggregate
 
 @Aggregate

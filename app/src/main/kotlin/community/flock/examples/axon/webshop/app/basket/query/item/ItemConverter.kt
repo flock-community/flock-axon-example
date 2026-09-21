@@ -5,9 +5,10 @@ import community.flock.examples.axon.webshop.app.basket.command.model.Price
 import community.flock.examples.axon.webshop.app.basket.command.model.Title
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.common.Converter
+import community.flock.examples.axon.webshop.app.common.SymmetricConverter
 import java.math.BigDecimal
 
-object ItemTransformer : Converter<Item, ItemEntity> {
+object ItemConverter : SymmetricConverter<ItemEntity, Item> {
     override fun ItemEntity.internalize() =
         Item(
             id = ItemId(id),

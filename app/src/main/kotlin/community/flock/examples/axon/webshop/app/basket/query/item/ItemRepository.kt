@@ -1,8 +1,8 @@
 package community.flock.examples.axon.webshop.app.basket.query.item
 
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.query.item.ItemTransformer.externalize
-import community.flock.examples.axon.webshop.app.basket.query.item.ItemTransformer.internalize
+import community.flock.examples.axon.webshop.app.basket.query.item.ItemConverter.externalize
+import community.flock.examples.axon.webshop.app.basket.query.item.ItemConverter.internalize
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import jakarta.persistence.ElementCollection

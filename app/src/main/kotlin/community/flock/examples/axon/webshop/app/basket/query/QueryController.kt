@@ -1,47 +1,43 @@
 package community.flock.examples.axon.webshop.app.basket.query
 
-import community.flock.examples.axon.webshop.api.basket.BASKET_BASE_URL
-import community.flock.examples.axon.webshop.api.basket.ITEMS_PATH
-import community.flock.examples.axon.webshop.api.basket.query.ItemDto
-import community.flock.examples.axon.webshop.api.basket.query.QueryApi
+import arrow.core.raise.either
+import community.flock.examples.axon.webshop.api.endpoint.GetBasketIds
+import community.flock.examples.axon.webshop.api.endpoint.GetItems
+import community.flock.examples.axon.webshop.api.model.QueryProblem
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemProducer.produce
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.InvalidBasketIdException
 import kotlinx.coroutines.future.await
 import org.axonframework.config.Configuration
-import org.axonframework.messaging.responsetypes.MultipleInstancesResponseType
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
+import org.axonframework.extensions.kotlin.queryMany
 import org.springframework.web.bind.annotation.RestController
 
+private interface QueryApi :
+    GetBasketIds.Handler,
+    GetItems.Handler
+
 @RestController
-@RequestMapping(BASKET_BASE_URL)
 class QueryController(
     configuration: Configuration,
 ) : QueryApi {
     private val queryGateway = configuration.queryGateway()
 
-    @GetMapping
-    override suspend fun getBasketIds(): List<String> =
-        queryGateway
-            .query(
-                GetAllActiveBasketIds(),
-                MultipleInstancesResponseType(BasketId::class.java),
-            ).await()
+    override suspend fun getBasketIds(request: GetBasketIds.Request): GetBasketIds.Response<*> =
+        GetAllActiveBasketIds()
+            .let { queryGateway.queryMany<BasketId, GetAllActiveBasketIds>(it) }
+            .await()
             .map { it.toString() }
+            .let(GetBasketIds::Response200)
 
-    @GetMapping("/{basketId}/$ITEMS_PATH")
-    override suspend fun getItems(
-        @PathVariable basketId: String,
-    ): List<ItemDto> =
-        run {
-            val id = BasketId(basketId) ?: throw InvalidBasketIdException(basketId)
+    override suspend fun getItems(request: GetItems.Request): GetItems.Response<*> =
+        either {
+            val basketId = BasketId(request.path.basketId).bind()
             queryGateway
-                .query(
-                    GetItemsQuery(id),
-                    MultipleInstancesResponseType(Item::class.java),
-                ).await()
-        }.map { it.produce() }
+                .queryMany<Item, GetItemsQuery>(GetItemsQuery(basketId))
+                .await()
+                .map { it.produce() }
+        }.fold(
+            { GetItems.Response400(QueryProblem(it.reason)) },
+            { GetItems.Response200(it) },
+        )
 }

@@ -1,6 +1,6 @@
 package community.flock.examples.axon.webshop.app.basket.command
 
-import community.flock.examples.axon.webshop.api.basket.command.model.ItemDto
+import community.flock.examples.axon.webshop.api.model.ItemDto
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.command.model.Price
 import community.flock.examples.axon.webshop.app.basket.command.model.Title

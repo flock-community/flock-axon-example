@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
+*.private.env.json
 .mcp.json
 pom.xml.versionsBackup

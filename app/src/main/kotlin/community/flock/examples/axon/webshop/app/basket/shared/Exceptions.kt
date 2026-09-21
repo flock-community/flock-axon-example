@@ -1,13 +1,13 @@
 package community.flock.examples.axon.webshop.app.basket.shared
 
-sealed class AppException(
-    override val message: String,
-) : RuntimeException(message)
+sealed class DomainProblem(
+    val reason: String,
+)
 
-class InvalidBasketIdException(
+class InvalidBasketId(
     id: String,
-) : AppException("Invalid basket ID: $id")
+) : DomainProblem("Basket id is not valid: $id")
 
-class InvalidItemIdException(
+class InvalidItemId(
     id: String,
-) : AppException("Invalid item ID: $id")
+) : DomainProblem("Item id is not valid: $id")

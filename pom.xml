@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>community.flock.examples.axon.webshop</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>flock-axon-example</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
@@ -29,20 +29,43 @@
         <kotlin.version>2.4.20</kotlin.version>
         <ktlint.version>1.8.0</ktlint.version>
         <revision>0.0.1-SNAPSHOT</revision>
+        <spotless-ktlint.version>1.8.0</spotless-ktlint.version>
+        <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
         <testcontainers.version>2.0.5</testcontainers.version>
+        <wirespec.version>0.21.1</wirespec.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>community.flock.examples.axon.webshop</groupId>
+                <artifactId>api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>community.flock.wirespec.integration</groupId>
+                <artifactId>spring-jvm</artifactId>
+                <version>${wirespec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>community.flock.wirespec.integration</groupId>
+                <artifactId>wirespec-jvm</artifactId>
+                <version>${wirespec.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.arrow-kt</groupId>
                 <artifactId>arrow-core-jvm</artifactId>
                 <version>${arrow.version}</version>
             </dependency>
             <dependency>
-                <groupId>community.flock.examples.axon.webshop</groupId>
-                <artifactId>api</artifactId>
-                <version>${revision}</version>
+                <groupId>io.kotest</groupId>
+                <artifactId>kotest-assertions-core-jvm</artifactId>
+                <version>${kotest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-server-connector</artifactId>
+                <version>${axon.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.axonframework</groupId>
@@ -51,13 +74,8 @@
             </dependency>
             <dependency>
                 <groupId>org.axonframework</groupId>
-                <artifactId>axon-server-connector</artifactId>
+                <artifactId>axon-test</artifactId>
                 <version>${axon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.axonframework.extensions.reactor</groupId>
-                <artifactId>axon-reactor-spring-boot-starter</artifactId>
-                <version>${axon-extensions.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.axonframework.extensions.kotlin</groupId>
@@ -65,14 +83,9 @@
                 <version>${axon-extensions.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.axonframework</groupId>
-                <artifactId>axon-test</artifactId>
-                <version>${axon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.kotest</groupId>
-                <artifactId>kotest-assertions-core-jvm</artifactId>
-                <version>${kotest.version}</version>
+                <groupId>org.axonframework.extensions.reactor</groupId>
+                <artifactId>axon-reactor-spring-boot-starter</artifactId>
+                <version>${axon-extensions.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -81,12 +94,12 @@
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-postgresql</artifactId>
+                <artifactId>testcontainers-junit-jupiter</artifactId>
                 <version>${testcontainers.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-junit-jupiter</artifactId>
+                <artifactId>testcontainers-postgresql</artifactId>
                 <version>${testcontainers.version}</version>
             </dependency>
         </dependencies>
@@ -116,71 +129,44 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>com.github.ekryd.sortpom</groupId>
-                    <artifactId>sortpom-maven-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <predefinedSortOrder>custom_1</predefinedSortOrder>
-                        <lineSeparator>\n</lineSeparator>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <sortProperties>true</sortProperties>
-                        <sortDependencies>scope</sortDependencies>
-                        <nrOfIndentSpace>4</nrOfIndentSpace>
-                        <expandEmptyElements>false</expandEmptyElements>
-                        <createBackupFile>false</createBackupFile>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>sort</goal>
-                            </goals>
-                            <phase>verify</phase>
-                        </execution>
-                    </executions>
+                    <groupId>community.flock.wirespec.plugin.maven</groupId>
+                    <artifactId>wirespec-maven-plugin</artifactId>
+                    <version>${wirespec.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>${maven-antrun-plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.pinterest.ktlint</groupId>
-                            <artifactId>ktlint-cli</artifactId>
-                            <version>${ktlint.version}</version>
-                        </dependency>
-                        <!-- additional 3rd party ruleset(s) can be specified here -->
-                    </dependencies>
-                    <executions>
-                        <execution>
-                            <id>ktlint-format</id>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <configuration>
-                                <target name="ktlint">
-                                    <java classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath" dir="${basedir}" failonerror="true" fork="true" taskname="ktlint">
-                                        <jvmarg value="--add-opens=java.base/java.lang=ALL-UNNAMED"/>
-                                        <arg value="-F"/>
-                                        <arg value="src/**/*.kt"/>
-                                    </java>
-                                </target>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>ktlint</id>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                            <phase>verify</phase>
-                            <configuration>
-                                <target name="ktlint">
-                                    <java classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath" dir="${basedir}" failonerror="true" fork="true" taskname="ktlint">
-                                        <arg value="src/**/*.kt"/>
-                                    </java>
-                                </target>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless-maven-plugin.version}</version>
+                    <configuration>
+                        <kotlin>
+                            <includes>
+                                <include>src/main/kotlin/**/*.kt</include>
+                                <include>src/test/kotlin/**/*.kt</include>
+                            </includes>
+                            <ktlint>
+                                <version>${spotless-ktlint.version}</version>
+                                <editorConfigOverride>
+                                    <ktlint_code_style>ktlint_official</ktlint_code_style>
+                                    <ktlint_standard_multiline-expression-wrapping>disabled</ktlint_standard_multiline-expression-wrapping>
+                                    <ktlint_standard_string-template-indent>disabled</ktlint_standard_string-template-indent>
+                                    <ktlint_standard_blank-line-between-when-conditions>disabled</ktlint_standard_blank-line-between-when-conditions>
+                                    <ktlint_standard_when-entry-bracing>disabled</ktlint_standard_when-entry-bracing>
+                                </editorConfigOverride>
+                            </ktlint>
+                        </kotlin>
+                        <pom>
+                            <sortPom>
+                                <predefinedSortOrder>custom_1</predefinedSortOrder>
+                                <lineSeparator>\n</lineSeparator>
+                                <encoding>${project.build.sourceEncoding}</encoding>
+                                <sortProperties>true</sortProperties>
+                                <sortDependencies>scope,groupId,artifactId</sortDependencies>
+                                <sortDependencyManagement/>
+                                <nrOfIndentSpace>4</nrOfIndentSpace>
+                                <expandEmptyElements>false</expandEmptyElements>
+                            </sortPom>
+                        </pom>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -191,13 +177,16 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.github.ekryd.sortpom</groupId>
-                <artifactId>sortpom-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven-antrun-plugin.version}</version>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>spotless-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -209,11 +198,17 @@
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-antrun-plugin</artifactId>
+                            <groupId>com.diffplug.spotless</groupId>
+                            <artifactId>spotless-maven-plugin</artifactId>
+                            <configuration>
+                                <skip>false</skip>
+                            </configuration>
                             <executions>
                                 <execution>
-                                    <id>ktlint-format</id>
+                                    <id>spotless-apply</id>
+                                    <goals>
+                                        <goal>apply</goal>
+                                    </goals>
                                     <phase>validate</phase>
                                 </execution>
                             </executions>

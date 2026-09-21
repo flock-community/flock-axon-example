@@ -2,11 +2,11 @@ package community.flock.examples.axon.webshop.app.basket.query.item
 
 import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.command.model.minus
+import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
+import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
 import community.flock.examples.axon.webshop.app.basket.query.GetItemsQuery
-import community.flock.examples.axon.webshop.app.basket.shared.BasketCreatedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemAddedEvent
-import community.flock.examples.axon.webshop.app.basket.shared.ItemRemovedEvent
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
