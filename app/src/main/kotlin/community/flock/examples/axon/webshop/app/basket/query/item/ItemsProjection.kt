@@ -7,8 +7,8 @@ import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
 import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
 import community.flock.examples.axon.webshop.app.basket.query.GetItemsQuery
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import org.axonframework.eventhandling.EventHandler
-import org.axonframework.queryhandling.QueryHandler
+import org.axonframework.messaging.eventhandling.annotation.EventHandler
+import org.axonframework.messaging.queryhandling.annotation.QueryHandler
 import org.springframework.stereotype.Component
 
 @Component

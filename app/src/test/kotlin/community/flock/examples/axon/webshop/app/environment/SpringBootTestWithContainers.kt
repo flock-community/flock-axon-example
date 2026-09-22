@@ -3,6 +3,9 @@ package community.flock.examples.axon.webshop.app.environment
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
+import org.springframework.context.annotation.Import
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.junit.jupiter.Testcontainers
@@ -10,7 +13,9 @@ import org.testcontainers.postgresql.PostgreSQLContainer
 import java.time.Duration
 
 @Testcontainers
-abstract class WithContainers {
+@Import(TestConfig::class)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+abstract class SpringBootTestWithContainers {
     @Test
     fun containersAreRunning() {
         axonServer.isRunning shouldBe true

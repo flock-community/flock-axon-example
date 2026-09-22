@@ -7,14 +7,15 @@ import community.flock.examples.axon.webshop.api.endpoint.DeleteItem
 import community.flock.examples.axon.webshop.api.endpoint.GetNewBasket
 import community.flock.examples.axon.webshop.api.endpoint.PostItem
 import community.flock.examples.axon.webshop.api.model.CommandProblem
-import community.flock.examples.axon.webshop.app.basket.command.BasketIdProducer.produce
+import community.flock.examples.axon.webshop.api.model.UUID
 import community.flock.examples.axon.webshop.app.basket.command.ItemConsumer.consume
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.common.SingleValidationProblem
 import community.flock.examples.axon.webshop.app.common.ValidationProblem
 import community.flock.examples.axon.webshop.app.common.plus
-import org.axonframework.config.Configuration
+import org.axonframework.extension.kotlin.messaging.sendAndWait
+import org.axonframework.messaging.commandhandling.gateway.CommandGateway
 import org.springframework.web.bind.annotation.RestController
 
 private interface CommandApi :
@@ -24,15 +25,12 @@ private interface CommandApi :
 
 @RestController
 class CommandController(
-    configuration: Configuration,
+    val commandGateway: CommandGateway,
 ) : CommandApi {
-    private val commandGateway = configuration.commandGateway()
-
     override suspend fun getNewBasket(request: GetNewBasket.Request): GetNewBasket.Response<*> =
-        run {
-            val command = CreateBasketCommand(basketId = BasketId())
-            commandGateway.sendAndWait<BasketId>(command).produce()
-        }.let(GetNewBasket::Response200)
+        CreateBasketCommand(basketId = BasketId())
+            .let<CreateBasketCommand, UUID>(commandGateway::sendAndWait)
+            .let(GetNewBasket::Response200)
 
     override suspend fun postItem(request: PostItem.Request): PostItem.Response<*> =
         either {
@@ -42,15 +40,27 @@ class CommandController(
                 ::AddItemCommand,
             ).let<AddItemCommand, Unit>(commandGateway::sendAndWait)
         }.map { PostItem.Response200 }
-            .mapLeft { (it as List<ValidationProblem>).reduce { acc, problem -> acc.plus(problem) } }
-            .mapLeft { PostItem.Response400(CommandProblem(it.reason)) }
-            .merge()
+            .mapLeft {
+                it
+                    .reduce(ValidationProblem::plus)
+                    .reason
+                    .let(::CommandProblem)
+                    .let(PostItem::Response400)
+            }.merge()
 
     override suspend fun deleteItem(request: DeleteItem.Request): DeleteItem.Response<*> =
         either {
-            val basketId = BasketId(request.path.basketId).mapLeft { DeleteItem.Response400(CommandProblem(it.reason)) }.bind()
-            val itemId = ItemId(request.path.itemId).mapLeft { DeleteItem.Response400(CommandProblem(it.reason)) }.bind()
-            val command = RemoveItemCommand(basketId = basketId, itemId = itemId)
-            commandGateway.sendAndWait<Unit>(command)
-        }.map { DeleteItem.Response200 }.merge()
+            zipOrAccumulate(
+                { BasketId(request.path.basketId).mapLeft { SingleValidationProblem(it.reason) }.bind() },
+                { ItemId(request.path.itemId).mapLeft { SingleValidationProblem(it.reason) }.bind() },
+                ::RemoveItemCommand,
+            ).let<RemoveItemCommand, Unit>(commandGateway::sendAndWait)
+        }.map { DeleteItem.Response200 }
+            .mapLeft {
+                it
+                    .reduce(ValidationProblem::plus)
+                    .reason
+                    .let(::CommandProblem)
+                    .let(DeleteItem::Response400)
+            }.merge()
 }

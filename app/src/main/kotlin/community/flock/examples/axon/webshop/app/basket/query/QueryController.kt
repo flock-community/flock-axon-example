@@ -10,8 +10,7 @@ import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemProducer.produce
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import kotlinx.coroutines.future.await
-import org.axonframework.config.Configuration
-import org.axonframework.extensions.kotlin.queryMany
+import org.axonframework.messaging.queryhandling.gateway.QueryGateway
 import org.springframework.web.bind.annotation.RestController
 
 private interface QueryApi :
@@ -20,13 +19,11 @@ private interface QueryApi :
 
 @RestController
 class QueryController(
-    configuration: Configuration,
+    val queryGateway: QueryGateway,
 ) : QueryApi {
-    private val queryGateway = configuration.queryGateway()
-
     override suspend fun getBasketIds(request: GetBasketIds.Request): GetBasketIds.Response<*> =
         GetAllActiveBasketIds()
-            .let { queryGateway.queryMany<BasketId, GetAllActiveBasketIds>(it) }
+            .let { queryGateway.queryMany(it, BasketId::class.java) }
             .await()
             .produce()
             .let(GetBasketIds::Response200)
@@ -35,7 +32,7 @@ class QueryController(
         either {
             val basketId = BasketId(request.path.basketId).mapLeft { GetItems.Response400(QueryProblem(it.reason)) }.bind()
             queryGateway
-                .queryMany<Item, GetItemsQuery>(GetItemsQuery(basketId))
+                .queryMany(GetItemsQuery(basketId), Item::class.java)
                 .await()
                 .produce()
         }.map(GetItems::Response200).merge()
