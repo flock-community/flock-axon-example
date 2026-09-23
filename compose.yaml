@@ -7,7 +7,7 @@ services:
       - "8124:8124"
 
   postgres:
-    image: postgres:18 # Also update app/src/test/community/flock/examples/axon/webshop/app/environment/Variables.kt
+    image: postgres:18 # Also update app/src/test/kotlin/community/flock/examples/axon/webshop/environment/Variables.kt
     restart: always
     ports:
       - "5432:5432"

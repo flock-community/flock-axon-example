@@ -10,4 +10,26 @@
 
     <artifactId>domain</artifactId>
 
+    <!--
+        The isolated domain of the hexagonalSpring layout: the model and the ports of every slice. It depends on
+        the Kotlin standard library only, which is what byterails enforces on its packages as well.
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.kotest</groupId>
+            <artifactId>kotest-assertions-core-jvm</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
