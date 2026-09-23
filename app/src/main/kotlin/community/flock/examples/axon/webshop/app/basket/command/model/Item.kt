@@ -5,7 +5,9 @@ import community.flock.examples.axon.webshop.app.common.Value
 import org.axonframework.eventsourcing.annotation.EventSourcedEntity
 import java.math.BigDecimal
 
-@EventSourcedEntity(tagKey = "itemId")
+const val ITEM_TAG = "itemId"
+
+@EventSourcedEntity(tagKey = ITEM_TAG)
 data class Item(
     val id: ItemId = ItemId(),
     val title: Title,

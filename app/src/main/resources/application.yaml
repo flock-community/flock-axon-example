@@ -14,4 +14,4 @@ spring:
     locale-resolver: fixed
 axon:
   serializer:
-    events: jackson
+    messages: jackson

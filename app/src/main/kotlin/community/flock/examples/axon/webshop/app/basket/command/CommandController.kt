@@ -8,13 +8,16 @@ import community.flock.examples.axon.webshop.api.endpoint.GetNewBasket
 import community.flock.examples.axon.webshop.api.endpoint.PostItem
 import community.flock.examples.axon.webshop.api.model.CommandProblem
 import community.flock.examples.axon.webshop.api.model.UUID
+import community.flock.examples.axon.webshop.app.basket.command.BasketIdProducer.produce
 import community.flock.examples.axon.webshop.app.basket.command.ItemConsumer.consume
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.common.SingleValidationProblem
 import community.flock.examples.axon.webshop.app.common.ValidationProblem
 import community.flock.examples.axon.webshop.app.common.plus
+import kotlinx.coroutines.future.await
 import org.axonframework.extension.kotlin.messaging.sendAndWait
+import org.axonframework.extension.kotlin.messaging.sendWithResult
 import org.axonframework.messaging.commandhandling.gateway.CommandGateway
 import org.springframework.web.bind.annotation.RestController
 
@@ -29,8 +32,9 @@ class CommandController(
 ) : CommandApi {
     override suspend fun getNewBasket(request: GetNewBasket.Request): GetNewBasket.Response<*> =
         CreateBasketCommand(basketId = BasketId())
-            .let<CreateBasketCommand, UUID>(commandGateway::sendAndWait)
-            .let(GetNewBasket::Response200)
+            .let { commandGateway.sendAndWait<BasketId>(it) }
+            .produce()
+            .let { GetNewBasket.Response200(it) }
 
     override suspend fun postItem(request: PostItem.Request): PostItem.Response<*> =
         either {
@@ -38,7 +42,7 @@ class CommandController(
                 { BasketId(request.path.basketId).mapLeft { SingleValidationProblem(it.reason) }.bind() },
                 { request.body.consume() },
                 ::AddItemCommand,
-            ).let<AddItemCommand, Unit>(commandGateway::sendAndWait)
+            ).let<AddItemCommand, BasketId>(commandGateway::sendAndWait)
         }.map { PostItem.Response200 }
             .mapLeft {
                 it

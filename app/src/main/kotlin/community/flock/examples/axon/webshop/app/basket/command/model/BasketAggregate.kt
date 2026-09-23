@@ -4,6 +4,7 @@ import community.flock.examples.axon.webshop.app.basket.command.AddItemCommand
 import community.flock.examples.axon.webshop.app.basket.command.CreateBasketCommand
 import community.flock.examples.axon.webshop.app.basket.command.RemoveItemCommand
 import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.app.basket.event.BasketEvent.Companion.BASKET_TAG
 import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
 import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
@@ -16,7 +17,7 @@ import org.axonframework.messaging.commandhandling.annotation.CommandHandler
 import org.axonframework.messaging.eventhandling.gateway.EventAppender
 
 @EventSourced(idType = BasketId::class)
-@EventSourcedEntity(tagKey = "basketId")
+@EventSourcedEntity(tagKey = BASKET_TAG)
 class BasketAggregate
     @EntityCreator
     constructor() {
@@ -31,15 +32,17 @@ class BasketAggregate
             println("Aggregate constructed")
         }
 
-        @CommandHandler
-        fun createBasket(
-            command: CreateBasketCommand,
-            eventAppender: EventAppender,
-        ): Unit =
-            command.let { command ->
-                println("Create Basket with id: ${command.basketId}")
-                eventAppender.append(BasketCreatedEvent(command.basketId))
-            }
+        companion object {
+            @JvmStatic
+            @CommandHandler
+            fun createBasket(
+                command: CreateBasketCommand,
+                eventAppender: EventAppender,
+            ): BasketId =
+                command.basketId
+                    .also { println("Create Basket with id: $it") }
+                    .also { eventAppender.append(BasketCreatedEvent(it)) }
+        }
 
         @EventSourcingHandler
         fun on(event: BasketCreatedEvent) {
@@ -51,13 +54,12 @@ class BasketAggregate
         fun addItem(
             command: AddItemCommand,
             eventAppender: EventAppender,
-        ): Unit =
-            command.let { (basketId, item) ->
-                val itemId = item.id
-                if (item.title.value.lowercase() == "yolo") throw RuntimeException("Don't yolo!!!")
-                println("Adding Item for basket: $basketId with itemId: $itemId")
-                eventAppender.append(ItemAddedEvent(basketId, item))
-            }
+        ): BasketId =
+            command
+                .also { (_, item) -> if (item.title.value.lowercase() == "yolo") throw RuntimeException("Don't yolo!!!") }
+                .also { (basketId, item) -> println("Adding Item for basket: $basketId with itemId: ${item.id}") }
+                .also { (basketId, item) -> eventAppender.append(ItemAddedEvent(basketId, item)) }
+                .basketId
 
         @EventSourcingHandler
         fun on(event: ItemAddedEvent): Unit =
@@ -72,10 +74,11 @@ class BasketAggregate
         fun removeItem(
             command: RemoveItemCommand,
             eventAppender: EventAppender,
-        ) {
-            println("Removing Item")
-            eventAppender.append(ItemRemovedEvent(command.basketId, command.itemId))
-        }
+        ): BasketId =
+            command
+                .also { println("Removing Item") }
+                .also { (basketId, itemId) -> eventAppender.append(ItemRemovedEvent(basketId, itemId)) }
+                .basketId
 
         @EventSourcingHandler
         fun on(event: ItemRemovedEvent) {
