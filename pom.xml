@@ -63,6 +63,11 @@
                 <version>${kotest.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.kotest</groupId>
+                <artifactId>kotest-assertions-json-jvm</artifactId>
+                <version>${kotest.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.axonframework</groupId>
                 <artifactId>axon-server-connector</artifactId>
                 <version>${axon.version}</version>

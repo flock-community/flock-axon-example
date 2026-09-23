@@ -3,6 +3,7 @@ package community.flock.examples.axon.webshop.app.environment
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.context.annotation.Import
@@ -14,6 +15,7 @@ import java.time.Duration
 
 @Testcontainers
 @Import(TestConfig::class)
+@AutoConfigureTestRestTemplate
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 abstract class SpringBootTestWithContainers {
     @Test
