@@ -1,5 +1,3 @@
-type UUID = String(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/g)
-
 type ItemDto {
     title: String,
     price: Number

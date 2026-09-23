@@ -2,6 +2,7 @@ package community.flock.examples.axon.webshop.app.basket.command
 
 import arrow.core.merge
 import arrow.core.raise.either
+import arrow.core.raise.zipOrAccumulate
 import community.flock.examples.axon.webshop.api.endpoint.DeleteItem
 import community.flock.examples.axon.webshop.api.endpoint.GetNewBasket
 import community.flock.examples.axon.webshop.api.endpoint.PostItem
@@ -10,8 +11,10 @@ import community.flock.examples.axon.webshop.app.basket.command.BasketIdProducer
 import community.flock.examples.axon.webshop.app.basket.command.ItemConsumer.consume
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
+import community.flock.examples.axon.webshop.app.common.SingleValidationProblem
+import community.flock.examples.axon.webshop.app.common.ValidationProblem
+import community.flock.examples.axon.webshop.app.common.plus
 import org.axonframework.config.Configuration
-import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController
 import org.springframework.web.bind.annotation.RestController
 
 private interface CommandApi :
@@ -33,11 +36,15 @@ class CommandController(
 
     override suspend fun postItem(request: PostItem.Request): PostItem.Response<*> =
         either {
-            val basketId = BasketId(request.path.basketId).mapLeft { PostItem.Response400(CommandProblem(it.reason)) }.bind()
-            val item = request.body.consume()
-            val command = AddItemCommand(basketId = basketId, item = item)
-            commandGateway.sendAndWait<Unit>(command)
-        }.map { PostItem.Response200 }.merge()
+            zipOrAccumulate(
+                { BasketId(request.path.basketId).mapLeft { SingleValidationProblem(it.reason) }.bind() },
+                { request.body.consume() },
+                ::AddItemCommand,
+            ).let<AddItemCommand, Unit>(commandGateway::sendAndWait)
+        }.map { PostItem.Response200 }
+            .mapLeft { (it as List<ValidationProblem>).reduce { acc, problem -> acc.plus(problem) } }
+            .mapLeft { PostItem.Response400(CommandProblem(it.reason)) }
+            .merge()
 
     override suspend fun deleteItem(request: DeleteItem.Request): DeleteItem.Response<*> =
         either {

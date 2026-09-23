@@ -9,7 +9,7 @@ type QueryProblem {
 }
 
 endpoint GetBasketIds GET /basket -> {
-    200 -> String[]
+    200 -> UUID[]
 }
 
 endpoint GetItems GET /basket/{basketId: String}/items -> {
