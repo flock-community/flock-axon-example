@@ -4,17 +4,15 @@ import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.command.model.Price
 import community.flock.examples.axon.webshop.app.basket.command.model.Title
 import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.environment.WithContainers
+import community.flock.examples.axon.webshop.app.environment.SpringBootTestWithContainers
 import community.flock.examples.axon.webshop.app.second
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class ItemRepositoryTest : WithContainers() {
+class ItemRepositoryTest : SpringBootTestWithContainers() {
     @Autowired
     private lateinit var itemRepository: ItemRepository
 

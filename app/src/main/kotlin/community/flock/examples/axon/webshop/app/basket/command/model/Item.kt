@@ -2,11 +2,11 @@ package community.flock.examples.axon.webshop.app.basket.command.model
 
 import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.common.Value
-import org.axonframework.modelling.command.EntityId
+import org.axonframework.eventsourcing.annotation.EventSourcedEntity
 import java.math.BigDecimal
 
+@EventSourcedEntity(tagKey = "itemId")
 data class Item(
-    @EntityId
     val id: ItemId = ItemId(),
     val title: Title,
     val price: Price,

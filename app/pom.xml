@@ -12,10 +12,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-kotlin</artifactId>
-        </dependency>
-        <dependency>
             <groupId>community.flock.examples.axon.webshop</groupId>
             <artifactId>api</artifactId>
         </dependency>
@@ -32,20 +28,16 @@
             <artifactId>reactor-kotlin-extensions</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-server-connector</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.axonframework.extensions.kotlin</groupId>
             <artifactId>axon-kotlin</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.axonframework.extensions.reactor</groupId>
-            <artifactId>axon-reactor-spring-boot-starter</artifactId>
+            <groupId>org.axonframework.extensions.spring</groupId>
+            <artifactId>axon-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.axonframework.extensions.spring</groupId>
+            <artifactId>axon-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -76,6 +68,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>tools.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.kotest</groupId>
             <artifactId>kotest-assertions-core-jvm</artifactId>
             <scope>test</scope>
@@ -90,7 +87,6 @@
             <artifactId>axon-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -1,7 +1,5 @@
 package community.flock.examples.axon.webshop.app
 
-import community.flock.examples.axon.webshop.app.environment.WithContainers
-import org.springframework.boot.test.context.SpringBootTest
+import community.flock.examples.axon.webshop.app.environment.SpringBootTestWithContainers
 
-@SpringBootTest
-class AppTests : WithContainers()
+class AppTests : SpringBootTestWithContainers()
