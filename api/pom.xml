@@ -54,6 +54,13 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>community.flock.byterails</groupId>
+                <artifactId>byterails-maven-plugin</artifactId>
+                <configuration>
+                    <module>api</module>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

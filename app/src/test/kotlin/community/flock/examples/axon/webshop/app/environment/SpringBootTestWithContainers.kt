@@ -25,7 +25,7 @@ abstract class SpringBootTestWithContainers {
     }
 
     companion object {
-        private const val WAIT_IN_SECONDS = 10L
+        private const val WAIT_IN_SECONDS = 60L
 
         private val axonServer: GenericContainer<*> =
             GenericContainer("axoniq/axonserver")

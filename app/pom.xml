@@ -163,6 +163,12 @@
             <plugin>
                 <groupId>community.flock.byterails</groupId>
                 <artifactId>byterails-maven-plugin</artifactId>
+                <configuration>
+                    <module>app</module>
+                    <slices>
+                        <slice>basket</slice>
+                    </slices>
+                </configuration>
             </plugin>
         </plugins>
     </build>

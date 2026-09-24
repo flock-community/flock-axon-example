@@ -34,6 +34,9 @@
             <plugin>
                 <groupId>community.flock.byterails</groupId>
                 <artifactId>byterails-maven-plugin</artifactId>
+                <configuration>
+                    <module>domain</module>
+                </configuration>
             </plugin>
         </plugins>
     </build>
