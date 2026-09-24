@@ -1,14 +1,11 @@
-package community.flock.examples.axon.webshop.app.basket.command.model
+package community.flock.examples.axon.webshop.domain.basket
 
-import community.flock.examples.axon.webshop.app.basket.command.AddItemCommand
-import community.flock.examples.axon.webshop.app.basket.command.CreateBasketCommand
-import community.flock.examples.axon.webshop.app.basket.command.RemoveItemCommand
-import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
-import community.flock.examples.axon.webshop.app.basket.event.BasketEvent.Companion.BASKET_TAG
-import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
-import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
+import community.flock.examples.axon.webshop.domain.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.domain.event.BasketEvent.Companion.BASKET_TAG
+import community.flock.examples.axon.webshop.domain.event.ItemAddedEvent
+import community.flock.examples.axon.webshop.domain.event.ItemRemovedEvent
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import org.axonframework.eventsourcing.annotation.EventSourcedEntity
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler
 import org.axonframework.eventsourcing.annotation.reflection.EntityCreator
@@ -22,13 +19,10 @@ class BasketAggregate
     @EntityCreator
     constructor() {
         private lateinit var basketId: BasketId
-
-        private var items: MutableMap<ItemId, Item>
-
+        private var items: MutableMap<ItemId, Item> = mutableMapOf()
         private var totalPrice: Price = Price(0.00)
 
         init {
-            items = mutableMapOf()
             println("Aggregate constructed")
         }
 

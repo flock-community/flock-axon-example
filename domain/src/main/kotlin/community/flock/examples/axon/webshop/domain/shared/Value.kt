@@ -1,4 +1,4 @@
-package community.flock.examples.axon.webshop.app.common
+package community.flock.examples.axon.webshop.domain.shared
 
 interface Value<T : Any> {
     val value: T

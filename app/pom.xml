@@ -16,6 +16,10 @@
             <artifactId>api</artifactId>
         </dependency>
         <dependency>
+            <groupId>community.flock.examples.axon.webshop</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+        <dependency>
             <groupId>community.flock.wirespec.integration</groupId>
             <artifactId>spring-jvm</artifactId>
         </dependency>
@@ -155,6 +159,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>community.flock.byterails</groupId>
+                <artifactId>byterails-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

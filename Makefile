@@ -12,6 +12,9 @@ clean: ## maven clean
 down: ## docker compose down
 	docker compose down
 
+format: ## format the code
+	./mvnw test-compile -Pformat
+
 run: ## run the app
 	java -jar app/target/app-*.jar
 

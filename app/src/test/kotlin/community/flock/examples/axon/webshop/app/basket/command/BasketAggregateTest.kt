@@ -1,13 +1,14 @@
 package community.flock.examples.axon.webshop.app.basket.command
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.command.model.Price
-import community.flock.examples.axon.webshop.app.basket.command.model.Title
-import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
-import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.environment.SpringBootTestWithContainers
+import community.flock.examples.axon.webshop.domain.basket.AddItemCommand
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.basket.Price
+import community.flock.examples.axon.webshop.domain.basket.Title
+import community.flock.examples.axon.webshop.domain.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.domain.event.ItemAddedEvent
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import org.axonframework.extension.spring.config.SpringAxonApplication
 import org.axonframework.test.fixture.AxonTestFixture
 import org.junit.jupiter.api.AfterEach

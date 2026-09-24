@@ -1,7 +1,6 @@
-package community.flock.examples.axon.webshop.app.basket.shared
+package community.flock.examples.axon.webshop.domain.shared
 
 import arrow.core.Either
-import community.flock.examples.axon.webshop.app.common.Value
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 

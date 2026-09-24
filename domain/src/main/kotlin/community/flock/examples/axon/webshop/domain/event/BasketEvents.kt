@@ -1,9 +1,9 @@
-package community.flock.examples.axon.webshop.app.basket.event
+package community.flock.examples.axon.webshop.domain.event
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.event.BasketEvent.Companion.BASKET_TAG
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.event.BasketEvent.Companion.BASKET_TAG
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import org.axonframework.eventsourcing.annotation.EventTag
 
 sealed interface Event

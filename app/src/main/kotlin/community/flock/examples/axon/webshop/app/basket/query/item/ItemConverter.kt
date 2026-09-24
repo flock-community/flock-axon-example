@@ -1,11 +1,10 @@
 package community.flock.examples.axon.webshop.app.basket.query.item
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.command.model.Price
-import community.flock.examples.axon.webshop.app.basket.command.model.Title
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
-import community.flock.examples.axon.webshop.app.common.Converter
 import community.flock.examples.axon.webshop.app.common.SymmetricConverter
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.basket.Price
+import community.flock.examples.axon.webshop.domain.basket.Title
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import java.math.BigDecimal
 
 object ItemConverter : SymmetricConverter<ItemEntity, Item> {

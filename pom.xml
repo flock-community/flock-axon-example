@@ -24,6 +24,8 @@
         <arrow.version>2.2.3</arrow.version>
         <axon-extensions.version>5.3.2</axon-extensions.version>
         <axon.version>5.3.2</axon.version>
+        <byterails.skip>true</byterails.skip>
+        <byterails.version>0.0.3</byterails.version>
         <java.version>21</java.version>
         <kotest.version>6.2.5</kotest.version>
         <kotlin.version>2.4.20</kotlin.version>
@@ -40,6 +42,11 @@
             <dependency>
                 <groupId>community.flock.examples.axon.webshop</groupId>
                 <artifactId>api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>community.flock.examples.axon.webshop</groupId>
+                <artifactId>domain</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -142,6 +149,29 @@
                     <groupId>community.flock.wirespec.plugin.maven</groupId>
                     <artifactId>wirespec-maven-plugin</artifactId>
                     <version>${wirespec.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>community.flock.byterails</groupId>
+                    <artifactId>byterails-maven-plugin</artifactId>
+                    <version>${byterails.version}</version>
+                    <configuration>
+                        <basePackage>community.flock.examples.axon.webshop</basePackage>
+                        <slices>
+                            <slice>basket</slice>
+                        </slices>
+                        <defaultRules>
+                            <defaultRule>kotlin</defaultRule>
+                            <defaultRule>hexagonalSpring</defaultRule>
+                        </defaultRules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>byterails-check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>com.diffplug.spotless</groupId>

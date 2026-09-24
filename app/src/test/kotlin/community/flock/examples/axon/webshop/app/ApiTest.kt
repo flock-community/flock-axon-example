@@ -19,7 +19,6 @@ class ApiTest : SpringBootTestWithContainers() {
     @Test
     fun testApi() {
         val id = restTemplate.postForObject<UUID>("/basket").shouldNotBeNull()
-        println(id)
         val req =
             //language=json
             """{

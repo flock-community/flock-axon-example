@@ -1,12 +1,12 @@
 package community.flock.examples.axon.webshop.app.basket.query.item
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.command.model.minus
-import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
-import community.flock.examples.axon.webshop.app.basket.event.ItemAddedEvent
-import community.flock.examples.axon.webshop.app.basket.event.ItemRemovedEvent
 import community.flock.examples.axon.webshop.app.basket.query.GetItemsQuery
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.basket.minus
+import community.flock.examples.axon.webshop.domain.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.domain.event.ItemAddedEvent
+import community.flock.examples.axon.webshop.domain.event.ItemRemovedEvent
+import community.flock.examples.axon.webshop.domain.shared.BasketId
 import org.axonframework.messaging.eventhandling.annotation.EventHandler
 import org.axonframework.messaging.queryhandling.annotation.QueryHandler
 import org.springframework.stereotype.Component

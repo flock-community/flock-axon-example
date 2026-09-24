@@ -1,8 +1,7 @@
-package community.flock.examples.axon.webshop.app.basket.command
+package community.flock.examples.axon.webshop.domain.basket
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import org.axonframework.modelling.annotation.TargetEntityId
 
 data class CreateBasketCommand(

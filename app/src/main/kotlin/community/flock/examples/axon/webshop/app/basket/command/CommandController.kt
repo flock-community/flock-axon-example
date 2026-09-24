@@ -7,17 +7,17 @@ import community.flock.examples.axon.webshop.api.endpoint.DeleteItem
 import community.flock.examples.axon.webshop.api.endpoint.GetNewBasket
 import community.flock.examples.axon.webshop.api.endpoint.PostItem
 import community.flock.examples.axon.webshop.api.model.CommandProblem
-import community.flock.examples.axon.webshop.api.model.UUID
 import community.flock.examples.axon.webshop.app.basket.command.BasketIdProducer.produce
 import community.flock.examples.axon.webshop.app.basket.command.ItemConsumer.consume
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
 import community.flock.examples.axon.webshop.app.common.SingleValidationProblem
 import community.flock.examples.axon.webshop.app.common.ValidationProblem
 import community.flock.examples.axon.webshop.app.common.plus
-import kotlinx.coroutines.future.await
+import community.flock.examples.axon.webshop.domain.basket.AddItemCommand
+import community.flock.examples.axon.webshop.domain.basket.CreateBasketCommand
+import community.flock.examples.axon.webshop.domain.basket.RemoveItemCommand
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import org.axonframework.extension.kotlin.messaging.sendAndWait
-import org.axonframework.extension.kotlin.messaging.sendWithResult
 import org.axonframework.messaging.commandhandling.gateway.CommandGateway
 import org.springframework.web.bind.annotation.RestController
 

@@ -1,10 +1,10 @@
 package community.flock.examples.axon.webshop.app.basket.query.item
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemConverter.externalize
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemConverter.internalize
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.ItemId
 import jakarta.persistence.ElementCollection
 import jakarta.persistence.Embeddable
 import jakarta.persistence.Entity
