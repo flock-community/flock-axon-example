@@ -1,8 +1,8 @@
 package community.flock.examples.axon.webshop.app.basket
 
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
-import community.flock.examples.axon.webshop.app.basket.command.model.Price
-import community.flock.examples.axon.webshop.app.basket.command.model.Title
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.basket.Price
+import community.flock.examples.axon.webshop.domain.basket.Title
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 

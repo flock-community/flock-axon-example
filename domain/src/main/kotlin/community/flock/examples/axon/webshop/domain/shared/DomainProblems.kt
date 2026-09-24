@@ -1,4 +1,4 @@
-package community.flock.examples.axon.webshop.app.basket.shared
+package community.flock.examples.axon.webshop.domain.shared
 
 sealed class DomainProblem(
     val reason: String,

@@ -4,8 +4,8 @@ import community.flock.wirespec.integration.spring.kotlin.configuration.EnableWi
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
 @EnableWirespecController
+@SpringBootApplication(scanBasePackages = ["community.flock.examples.axon.webshop"])
 class App
 
 fun main(args: Array<String>) {

@@ -6,10 +6,10 @@ import community.flock.examples.axon.webshop.api.endpoint.GetBasketIds
 import community.flock.examples.axon.webshop.api.endpoint.GetItems
 import community.flock.examples.axon.webshop.api.model.QueryProblem
 import community.flock.examples.axon.webshop.app.basket.command.BasketIdProducer.produce
-import community.flock.examples.axon.webshop.app.basket.command.model.Item
 import community.flock.examples.axon.webshop.app.basket.query.item.ItemProducer.produce
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
 import community.flock.examples.axon.webshop.app.common.SingleValidationProblem
+import community.flock.examples.axon.webshop.domain.basket.Item
+import community.flock.examples.axon.webshop.domain.shared.BasketId
 import kotlinx.coroutines.future.await
 import org.axonframework.extension.kotlin.messaging.queryMany
 import org.axonframework.messaging.queryhandling.gateway.QueryGateway

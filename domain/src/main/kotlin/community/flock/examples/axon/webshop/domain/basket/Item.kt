@@ -1,7 +1,7 @@
-package community.flock.examples.axon.webshop.app.basket.command.model
+package community.flock.examples.axon.webshop.domain.basket
 
-import community.flock.examples.axon.webshop.app.basket.shared.ItemId
-import community.flock.examples.axon.webshop.app.common.Value
+import community.flock.examples.axon.webshop.domain.shared.ItemId
+import community.flock.examples.axon.webshop.domain.shared.Value
 import org.axonframework.eventsourcing.annotation.EventSourcedEntity
 import java.math.BigDecimal
 

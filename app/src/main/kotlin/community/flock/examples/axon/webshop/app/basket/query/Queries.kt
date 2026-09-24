@@ -1,6 +1,6 @@
 package community.flock.examples.axon.webshop.app.basket.query
 
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
+import community.flock.examples.axon.webshop.domain.shared.BasketId
 
 class GetAllActiveBasketIds
 

@@ -1,8 +1,8 @@
 package community.flock.examples.axon.webshop.app.basket.query.basket
 
-import community.flock.examples.axon.webshop.app.basket.event.BasketCreatedEvent
 import community.flock.examples.axon.webshop.app.basket.query.GetAllActiveBasketIds
-import community.flock.examples.axon.webshop.app.basket.shared.BasketId
+import community.flock.examples.axon.webshop.domain.event.BasketCreatedEvent
+import community.flock.examples.axon.webshop.domain.shared.BasketId
 import org.axonframework.messaging.eventhandling.annotation.EventHandler
 import org.axonframework.messaging.queryhandling.annotation.QueryHandler
 import org.springframework.stereotype.Component
