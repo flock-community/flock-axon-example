@@ -31,7 +31,7 @@
         <ktlint.version>1.8.0</ktlint.version>
         <revision>0.0.1-SNAPSHOT</revision>
         <spotless-ktlint.version>1.8.0</spotless-ktlint.version>
-        <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
         <testcontainers.version>2.0.5</testcontainers.version>
         <wirespec.version>0.21.1</wirespec.version>
     </properties>
@@ -132,17 +132,7 @@
                         <args>
                             <arg>-Xjsr305=strict</arg>
                         </args>
-                        <compilerPlugins>
-                            <plugin>spring</plugin>
-                        </compilerPlugins>
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-allopen</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>community.flock.wirespec.plugin.maven</groupId>

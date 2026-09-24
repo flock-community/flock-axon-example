@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class BasketProjection(
-    private val repository: BasketRepository,
+    private val repository: BasketIdRepository,
 ) {
     @QueryHandler
     fun handleQuery(query: GetAllActiveBasketIds): List<BasketId> = repository.getBasketIds()
