@@ -1,3 +1,5 @@
+import community.flock.byterails.dsl.byterails
+
 byterails {
     // The event-sourced model: the aggregate with its commands, the events and the shared value
     // types. Every other module may use all three packages.
