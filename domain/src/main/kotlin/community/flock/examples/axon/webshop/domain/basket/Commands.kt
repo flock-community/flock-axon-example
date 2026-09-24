@@ -2,20 +2,21 @@ package community.flock.examples.axon.webshop.domain.basket
 
 import community.flock.examples.axon.webshop.domain.shared.BasketId
 import community.flock.examples.axon.webshop.domain.shared.ItemId
-import org.axonframework.modelling.annotation.TargetEntityId
+
+sealed interface BasketCommand {
+    val basketId: BasketId
+}
 
 data class CreateBasketCommand(
-    @TargetEntityId val basketId: BasketId,
-)
+    override val basketId: BasketId,
+) : BasketCommand
 
 data class AddItemCommand(
-    @TargetEntityId
-    val basketId: BasketId,
+    override val basketId: BasketId,
     val item: Item,
-)
+) : BasketCommand
 
 data class RemoveItemCommand(
-    @TargetEntityId
-    val basketId: BasketId,
+    override val basketId: BasketId,
     val itemId: ItemId,
-)
+) : BasketCommand

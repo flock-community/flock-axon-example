@@ -12,6 +12,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.fraktalio.fmodel</groupId>
+            <artifactId>domain-jvm</artifactId>
+        </dependency>
+        <dependency>
             <groupId>community.flock.examples.axon.webshop</groupId>
             <artifactId>api</artifactId>
         </dependency>
