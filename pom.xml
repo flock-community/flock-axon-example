@@ -24,7 +24,7 @@
         <arrow.version>2.2.3</arrow.version>
         <axon-extensions.version>5.3.2</axon-extensions.version>
         <axon.version>5.3.2</axon.version>
-        <byterails.version>0.0.5</byterails.version>
+        <byterails.version>0.0.6</byterails.version>
         <java.version>21</java.version>
         <kotest.version>6.2.5</kotest.version>
         <kotlin.version>2.4.20</kotlin.version>
