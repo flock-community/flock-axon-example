@@ -12,20 +12,32 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.fraktalio.fmodel</groupId>
+            <artifactId>domain-jvm</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.arrow-kt</groupId>
             <artifactId>arrow-core-jvm</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.axonframework.extensions.kotlin</groupId>
-            <artifactId>axon-kotlin</artifactId>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-coroutines-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.kotest</groupId>
+            <artifactId>kotest-assertions-core-jvm</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.axonframework.extensions.spring</groupId>
-            <artifactId>axon-spring</artifactId>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-coroutines-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.axonframework.extensions.spring</groupId>
-            <artifactId>axon-spring-boot-starter</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
