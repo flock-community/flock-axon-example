@@ -28,16 +28,16 @@
             <artifactId>arrow-core-jvm</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.axoniq.framework</groupId>
+            <artifactId>axoniq-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.projectreactor.kotlin</groupId>
             <artifactId>reactor-kotlin-extensions</artifactId>
         </dependency>
         <dependency>
             <groupId>org.axonframework.extensions.kotlin</groupId>
             <artifactId>axon-kotlin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.axoniq.framework</groupId>
-            <artifactId>axoniq-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.axonframework.extensions.spring</groupId>

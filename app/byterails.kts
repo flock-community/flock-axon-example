@@ -3,6 +3,7 @@ import community.flock.byterails.dsl.byterails
 byterails {
     // Rules of the module root, where the application class lives, inherited by every package of
     // the app: the messaging framework, typed errors, coroutines and the Spring stereotypes.
+    allow("io.axoniq")
     allow("org.axonframework")
     allow("arrow")
     allow("kotlinx.coroutines")
