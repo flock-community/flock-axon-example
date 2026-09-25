@@ -28,7 +28,8 @@ abstract class SpringBootTestWithContainers {
         private const val WAIT_IN_SECONDS = 60L
 
         private val axonServer: GenericContainer<*> =
-            GenericContainer("axoniq/axonserver")
+            GenericContainer("axoniq/axonserver:2026.1.2-jdk-21-nonroot")
+                .withEnv("AXONIQ_AXONSERVER_STANDALONEDCB", "true")
                 .withExposedPorts(8024, 8124)
                 .waitingFor(Wait.forHttp("/actuator/info").forPort(8024))
                 .withStartupTimeout(Duration.ofSeconds(WAIT_IN_SECONDS))
