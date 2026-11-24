@@ -25,6 +25,7 @@
         <axon-extensions.version>5.3.2</axon-extensions.version>
         <axon.version>5.3.2</axon.version>
         <byterails.version>0.0.6</byterails.version>
+        <dependency-analyze.strict>false</dependency-analyze.strict>
         <java.version>21</java.version>
         <kotest.version>6.2.5</kotest.version>
         <kotlin.version>2.4.20</kotlin.version>
@@ -35,7 +36,7 @@
         <spotless-ktlint.version>1.8.0</spotless-ktlint.version>
         <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
         <testcontainers.version>2.0.5</testcontainers.version>
-        <wirespec.version>0.21.1</wirespec.version>
+        <wirespec.version>0.23.13</wirespec.version>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +76,11 @@
             <dependency>
                 <groupId>io.arrow-kt</groupId>
                 <artifactId>arrow-core-jvm</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.arrow-kt</groupId>
+                <artifactId>arrow-exception-utils-jvm</artifactId>
                 <version>${arrow.version}</version>
             </dependency>
             <dependency>
@@ -194,6 +200,25 @@
                         </pom>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <configuration>
+                        <failOnWarning>${dependency-analyze.strict}</failOnWarning>
+                        <ignoredDependencies>
+                            <ignoredDependency>org.jetbrains:annotations</ignoredDependency>
+                            <ignoredDependency>org.jetbrains.kotlin:kotlin-stdlib</ignoredDependency>
+                        </ignoredDependencies>
+                        <ignoredUnusedDeclaredDependencies/>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>analyze-only</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -201,6 +226,10 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>

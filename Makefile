@@ -1,7 +1,7 @@
 .PHONY: *
 
 build: ## build and verify the project
-	./mvnw verify -Pformat
+	./mvnw verify -Pformat -Ddependency-analyze.strict
 
 ## Equivalent to `make clean build`
 all: clean build

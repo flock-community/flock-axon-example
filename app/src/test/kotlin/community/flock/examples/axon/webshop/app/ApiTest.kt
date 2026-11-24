@@ -2,6 +2,7 @@ package community.flock.examples.axon.webshop.app
 
 import community.flock.examples.axon.webshop.app.environment.SpringBootTestWithContainers
 import io.kotest.assertions.json.shouldBeValidJson
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -25,10 +26,10 @@ class ApiTest : SpringBootTestWithContainers() {
                 "title": "bla",
                 "price": 5.00
             }"""
-        restTemplate.postForObject<String>("/basket/$id/items", req) shouldBe "{}"
-        restTemplate.postForObject<String>("/basket/$id/items", req) shouldBe "{}"
+        restTemplate.postForObject<String>("/basket/$id/items", req).shouldBeNull()
+        restTemplate.postForObject<String>("/basket/$id/items", req).shouldBeNull()
         restTemplate.delete("/basket/$id/items/0") shouldBe Unit
-        restTemplate.postForObject<String>("/basket/$id/items", req) shouldBe "{}"
+        restTemplate.postForObject<String>("/basket/$id/items", req).shouldBeNull()
         restTemplate.getForObject<String>("/basket") shouldContain "$id"
         restTemplate
             .getForObject<String>("/basket/$id/items")
