@@ -36,7 +36,7 @@
         <spotless-ktlint.version>1.8.0</spotless-ktlint.version>
         <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
         <testcontainers.version>2.0.5</testcontainers.version>
-        <wirespec.version>0.23.7</wirespec.version>
+        <wirespec.version>0.23.13</wirespec.version>
     </properties>
 
     <dependencyManagement>
