@@ -6,7 +6,7 @@ build: ## build and verify the project
 ## Equivalent to `make clean build`
 all: clean build
 
-clean: ## maven clean`
+clean: ## maven clean
 	./mvnw clean
 
 down: ## docker compose down

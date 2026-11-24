@@ -155,11 +155,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>tools.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
             <scope>runtime</scope>
@@ -276,7 +271,6 @@
                         <ignoredUnusedDeclaredDependency>org.springframework.boot:spring-boot-jdbc</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.springframework.boot:spring-boot-tomcat</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>org.springframework.boot:spring-boot-webmvc</ignoredUnusedDeclaredDependency>
-                        <ignoredUnusedDeclaredDependency>org.yaml:snakeyaml</ignoredUnusedDeclaredDependency>
                         <ignoredUnusedDeclaredDependency>tools.jackson.module:jackson-module-kotlin</ignoredUnusedDeclaredDependency>
                         <!-- only inline functions are used, which leave no reference in the bytecode -->
                         <ignoredUnusedDeclaredDependency>org.axonframework.extensions.kotlin:axon-kotlin</ignoredUnusedDeclaredDependency>
